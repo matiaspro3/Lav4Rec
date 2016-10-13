@@ -210,12 +210,6 @@ app.controller('controlUsuarioGrilla', function($scope, $http, $state, $auth) {
 
 
   }
-
-  $scope.Modificar=function(id){
-    
-    console.log("Modificar"+id);
-  }
-
 });
 
 

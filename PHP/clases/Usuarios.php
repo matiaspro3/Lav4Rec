@@ -93,6 +93,7 @@ class usuario
 		$consulta->bindValue(':usuario', $usuario->usuario, PDO::PARAM_INT);
 		$consulta->bindValue(':dni', $usuario->dni, PDO::PARAM_INT);
 		$consulta->bindValue(':password', $usuario->password, PDO::PARAM_INT);
+
 		$consulta->execute();
 		$personaBuscada= $consulta->fetchObject('usuario');
 		return $personaBuscada;	

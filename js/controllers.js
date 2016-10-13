@@ -9,13 +9,8 @@ app.controller('controlMenu', function($scope, $http) {
   $scope.DatoTest="**Menu**";
 });
 app.controller('controlInicio', function($scope, $http) {
-  $scope.DatoTest="**Menu**";
-  $scope.titulo="Inicio y presentacion de la WEB";
-  //TENGO QUE VALIDAR SI ESTA AUTENTICADO
-/*  if($auth.isAuthenticated())
-    //muestro los botones para que ingrese al sistema
-  else
-    //le pido que se loguee*/
+
+
   
 });
 
@@ -64,7 +59,7 @@ app.controller('controlUsuarioMenu', function($scope, $http,$auth,$state) {
   $scope.Desloguearse = function(){
         $auth.logout();
 
-     $state.go("inicio");
+     $state.go("inicioOLD");
 }
 
 });
@@ -103,7 +98,7 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state) {
         if($auth.isAuthenticated()){
           console.info("token", $auth.getPayload());
           alert("LOGUEADO!");
-          $state.go("inicio");
+          $state.go("inicioOLD");
         }
         else{
           console.info("no token", $auth.getPayload());
@@ -125,8 +120,25 @@ app.controller('controlUsuarioLogin', function($scope, $http, $auth, $state) {
 
 app.controller('controlUsuarioRegistrarse', function($scope, $http, FileUploader, $state) {
   
- 
-  
+  $scope.usuario={};
+  $scope.usuario.usuario;
+  $scope.usuario.dni;
+  $scope.usuario.password;  
+  $scope.usuario.foto='pordefecto.png';
+ $scope.uploader=new FileUploader({url:'servidor/archivos.php'});
+
+
+
+$scope.uploader.onAfterAddingFile = function(item) {
+
+  item.file.name =$scope.usuario.usuario+'.jpg';
+};
+
+$scope.uploader.onSuccessItem=function(item, response, status, headers)
+  {
+
+       $scope.uploader.onBeforeUploadItem(item); };
+
 
   $scope.Guardar=function(){
   
@@ -134,11 +146,17 @@ app.controller('controlUsuarioRegistrarse', function($scope, $http, FileUploader
       console.log($scope.usuario);
 
 
+      console.log($scope.uploader.queue);
+      if($scope.uploader.queue[0]!=undefined)
+      {
+        var nombreFoto = $scope.uploader.queue[0]._file.name;
+        $scope.usuario.foto= $scope.usuario.usuario+'.jpg';
+      }
     $http.post('PHP/nexo.php', { datos: {accion :"insertarUser",usuario:$scope.usuario}})
     .then(function(respuesta) {       
        //aca se ejetuca si retorno sin errores        
      console.info("respuesta", respuesta.data);
-     $state.go("inicio");
+     $state.go("inicioOLD");
 
   },function errorCallback(response) {        
       //aca se ejecuta cuando hay errores
@@ -147,9 +165,13 @@ app.controller('controlUsuarioRegistrarse', function($scope, $http, FileUploader
 
   console.info("Ya guardé el archivo.");
 
-
-
   }
+
+
+
+
+
+
 
 });
 
@@ -339,7 +361,7 @@ $scope.uploader.onSuccessItem=function(item, response, status, headers)
        //aca se ejetuca si retorno sin errores        
      //console.info("respuesta", respuesta.data);
      alert("VOTO REGISTRADO!");
-     $state.go("inicio");
+     $state.go("inicioOLD");
     
   },function errorCallback(response) {        
       //aca se ejecuta cuando hay errores
@@ -364,6 +386,11 @@ $scope.uploader.onSuccessItem=function(item, response, status, headers)
   }
 
 
+
+  $scope.Loguin=function(){
+    $state.go("usuario.login");
+
+  }
   
 
 

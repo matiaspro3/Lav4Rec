@@ -145,13 +145,13 @@ class usuario
 	public static function InsertarUser($user)
 	{
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("insert into usuarios (usuario,dni,password)values(:usuario,:dni,:password)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("insert into usuarios (usuario,dni,password,pathfoto)values(:usuario,:dni,:password,:pathfoto)");
 		//$consulta =$objetoAccesoDato->RetornarConsulta("CALL InsertarPersona (:usuario,:dni,:password,:partido,:foto)");
 
 		$consulta->bindValue(':usuario', $user->usuario, PDO::PARAM_STR);
 		$consulta->bindValue(':dni',$user->dni, PDO::PARAM_STR);
 		$consulta->bindValue(':password', $user->password, PDO::PARAM_STR);
-	
+		$consulta->bindValue(':pathfoto', $user->foto, PDO::PARAM_STR);
 		$consulta->execute();		
 		return $objetoAccesoDato->RetornarUltimoIdInsertado();
 	

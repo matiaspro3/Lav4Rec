@@ -3,29 +3,30 @@ var app = angular.module('ABMangularPHP', ['ui.router', 'ABMangularPHP.controlle
 
 app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
   
-  $authProvider.loginUrl = 'PPLab4-1/Abm/PHP/auth.php'; //Ruta del archivo auth que esta en jwt y direcciona a PHP
+  $authProvider.loginUrl = 'Lav4Rec/PHP/auth.php'; //Ruta del archivo auth que esta en jwt y direcciona a PHP
   $authProvider.tokenName = 'ElNombreDelToken'; //nombre largo
   $authProvider.tokenPrefix = 'Aplicacion'; //sarasa
   $authProvider.authHeader = 'data';
 
-  $authProvider.github({
-      clientId: '08fc74e99837e2f15086',
-      url: '/auth/github',
-      authorizationEndpoint: 'https://github.com/login/oauth/authorize',
-      redirectUri: window.location.origin,
-      optionalUrlParams: ['scope'],
-      scope: ['user:email'],
-      scopeDelimiter: ' ',
-      oauthType: '2.0',
-      popupOptions: { width: 1020, height: 618 }
-    });
 
   $stateProvider
-
+/*
       .state('inicio', {
                 url : '/inicio',
                 templateUrl : 'vistas/inicio.html',
                 controller : 'controlInicio'
+            })
+   */
+ .state('inicioOLD', {
+                url : '/inicioOld',
+                templateUrl : 'vistas/inicioOLD.html',
+                controller : 'controlInicio'
+            })
+
+   .state('inicio', {
+                url : '/inicio',
+                templateUrl : 'vistas/inicio.html',
+                controller : 'controlPersonaVotacion'
             })
       .state('persona', {
                 url : '/persona',
@@ -124,6 +125,38 @@ app.config(function($stateProvider, $urlRouterProvider, $authProvider) {
                 }
             })
 
-             $urlRouterProvider.otherwise('/inicio');
+           $urlRouterProvider.otherwise('/inicio');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $authProvider.github({
+      clientId: '08fc74e99837e2f15086',
+      url: '/auth/github',
+      authorizationEndpoint: 'https://github.com/login/oauth/authorize',
+      redirectUri: window.location.origin,
+      optionalUrlParams: ['scope'],
+      scope: ['user:email'],
+      scopeDelimiter: ' ',
+      oauthType: '2.0',
+      popupOptions: { width: 1020, height: 618 }
+    });
 });
 

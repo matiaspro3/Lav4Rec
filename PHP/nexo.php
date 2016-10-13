@@ -92,6 +92,17 @@ else{//Si es un post entra por el else!
 
 			case "insertarUser":
 		{
+
+	if($respuesta->datos->usuario->foto!="pordefecto.png")
+			{
+				$rutaVieja="../servidor/usuarios/".$respuesta->datos->usuario->foto;
+				$rutaNueva="../fotos/".$respuesta->datos->usuario->foto;
+				copy($rutaVieja,$rutaNueva);
+			}
+
+
+
+
 			usuario:: insertarUser($respuesta->datos->usuario);
 			break;
 		}
